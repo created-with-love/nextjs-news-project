@@ -1,0 +1,49 @@
+.main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.post {
+    list-style: none;
+    width: 500px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid black;
+}
+
+.post img {
+    width: 100%;
+}
+
+.post h1 {
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 200ms ease;
+}
+
+.post h1:hover {
+    color: gray
+}
+
+.paginator {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.paginator button,
+.paginator div {
+    margin: 25px;
+}
+
+.paginator .disabled {
+    cursor: not-allowed;
+    color: rgb(179, 179, 179)
+}
+
+.paginator .active {
+    cursor: pointer;
+}
