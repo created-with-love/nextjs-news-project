@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import styles from '../../styles/Feed.module.css';
 import { Toolbar } from '../../components/toolbar';
@@ -32,41 +33,55 @@ const Feed = ({ pageNumber, articles }) => {
   };
 
   return (
-    <div className="page-container">
-      <Toolbar />
-      <div className={styles.main}>
-        {articles.map((article) => (
-          <li key={`id-${article.publishedAt}`} className={styles.post}>
-            <h1 onClick={() => onArticleClick(article.url)}>{article.title}</h1>
-            <p>{article.description}</p>
-            {!!article.urlToImage && (
-              <img src={article.urlToImage} alt="articleImage" width={500} />
-            )}
+    <>
+      <Head>
+        <title>News feed page</title>
+        <meta
+          name="description"
+          content={`This is the US news feed page #${pageNumber}`}
+        />
+        <meta
+          property="og:title"
+          content={`This is the US news feed page #${pageNumber}`}
+        />
+      </Head>
+      <div className="page-container">
+        <Toolbar />
+        <div className={styles.main}>
+          {articles.map((article) => (
+            <li key={`id-${article.publishedAt}`} className={styles.post}>
+              <h1 onClick={() => onArticleClick(article.url)}>
+                {article.title}
+              </h1>
+              <p>{article.description}</p>
+              {!!article.urlToImage && (
+                <img src={article.urlToImage} alt="articleImage" width={500} />
+              )}
 
-            <h6>Author: {article.author}</h6>
-            <p>{article.publishedAt}</p>
-            {/* <p>{article.content}</p> */}
-          </li>
-        ))}
+              <h6>Author: {article.author}</h6>
+              <p>{article.publishedAt}</p>
+            </li>
+          ))}
+        </div>
+        <div className={styles.paginator}>
+          <button
+            name="desc"
+            onClick={onPageBtnClick}
+            className={pageNumber === 1 ? styles.disabled : styles.active}
+          >
+            Previous Page
+          </button>
+          <div>#{pageNumber}</div>
+          <button
+            name="incr"
+            onClick={onPageBtnClick}
+            className={pageNumber >= 5 ? styles.disabled : styles.active}
+          >
+            Next Page
+          </button>
+        </div>
       </div>
-      <div className={styles.paginator}>
-        <button
-          name="desc"
-          onClick={onPageBtnClick}
-          className={pageNumber === 1 ? styles.disabled : styles.active}
-        >
-          Previous Page
-        </button>
-        <div>#{pageNumber}</div>
-        <button
-          name="incr"
-          onClick={onPageBtnClick}
-          className={pageNumber >= 5 ? styles.disabled : styles.active}
-        >
-          Next Page
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
